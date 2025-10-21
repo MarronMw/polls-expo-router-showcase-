@@ -21,10 +21,21 @@
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "package": "com.marronmw.polls"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-router"
+    ],
+    "scheme": "polls",
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "7b661329-c27f-4321-8172-05e8fbc31cf8"
+      }
     }
   }
 }
