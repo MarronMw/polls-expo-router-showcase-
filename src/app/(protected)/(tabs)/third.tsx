@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { StyleSheet, Text, View, StatusBar } from "react-native";
 import { Link, useRouter } from "expo-router";
 
 import { AppButton } from "./../../../components/AppButton";
 import Screen from "../../../components/Screen";
+import { AuthContext } from "../../../utils/aunthContext";
 
 //defining interface for props
 interface GreetingProps {
@@ -15,6 +16,7 @@ interface GreetingProps {
 type Status = "active" | "inactive" | "pending";
 
 const Greeting: React.FC<GreetingProps> = ({ name, level }) => {
+  const aunthContext = useContext(AuthContext);
   const [enabled, setEnabled] = useState<boolean>(false); //bool
   const [status, setStatus] = useState<Status>("inactive"); //unio type:Custom type
   const [data, setData] = useState<string[]>([]);
@@ -32,6 +34,7 @@ const Greeting: React.FC<GreetingProps> = ({ name, level }) => {
         <AppButton title="/Index" />
       </Link>
       {canGoBack && <AppButton title="Back" onPress={() => router.back()} />}
+      <AppButton title="Log Out" onPress={aunthContext.logOut} />
     </Screen>
   );
 };

@@ -1,9 +1,24 @@
 import { Redirect, Stack } from "expo-router";
-import React from "react";
+import React, { useContext } from "react";
+import { AuthContext } from "../../utils/aunthContext";
 
-function RootLayOut() {
-  const isAuthenticated = false; //
-  if (!isAuthenticated) {
+export const unstable_settings = {
+  // Ensure that the layout is always re-rendered on navigation
+  revalidate: "always",
+};
+
+function ProtectedLayOut() {
+  const aunthState = useContext(AuthContext);
+  console.log(
+    "isReady:",
+    aunthState.isReady,
+    "isLoggedIn:",
+    aunthState.isLoggedIn
+  );
+  if (!aunthState.isReady) {
+    return null; //or a loading spinnerc
+  }
+  if (!aunthState.isLoggedIn) {
     return <Redirect href="/login" />;
   }
   return (
@@ -13,4 +28,4 @@ function RootLayOut() {
   );
 }
 
-export default RootLayOut;
+export default ProtectedLayOut;

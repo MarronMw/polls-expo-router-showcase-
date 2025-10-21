@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Screen from "../components/Screen";
 import {
   View,
@@ -8,21 +8,20 @@ import {
   StyleSheet,
   Alert,
 } from "react-native";
+import { AuthContext } from "../utils/aunthContext";
 
 function Login() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const aunthContext = useContext(AuthContext);
 
   const handleSubmit = () => {
     if (!email.trim() || !password) {
       Alert.alert("Validation", "Please enter email and password.");
       return;
     }
-    // Replace with real auth logic
-    Alert.alert(
-      "Login",
-      `Email: ${email}\nPassword: ${"*".repeat(password.length)}`
-    );
+    // Replace login
+    return aunthContext.logIn();
   };
 
   return (

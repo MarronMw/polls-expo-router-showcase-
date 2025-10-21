@@ -8,10 +8,10 @@ export default function RootLayout() {
     <Tabs
       screenOptions={{
         headerTitleAlign: "center",
-        tabBarActiveTintColor: "#4c4c4c",
+        tabBarActiveTintColor: "tomato",
         tabBarInactiveTintColor: "white",
         tabBarShowLabel: false,
-        tabBarStyle: { backgroundColor: "tomato" },
+        tabBarStyle: { backgroundColor: "skyblue" },
       }}
       backBehavior="order"
     >
