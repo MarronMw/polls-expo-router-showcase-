@@ -11,7 +11,6 @@ import {
 import { AuthContext } from "../utils/aunthContext";
 
 function Login() {
-  console.log("login Screen");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const aunthContext = useContext(AuthContext);
