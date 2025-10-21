@@ -1,4 +1,4 @@
-import { useRouter } from "expo-router";
+import { SplashScreen, useRouter } from "expo-router";
 import React, {
   useEffect,
   useState,
@@ -23,18 +23,19 @@ export const AuthContext = createContext<AuthState>({
 const authStorageKey = "auth-key";
 
 export default function AuthProvider({ children }: PropsWithChildren) {
+  SplashScreen.preventAutoHideAsync();
   const router = useRouter();
   const [isReady, setIsReady] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const logIn = async () => {
+  const logIn = () => {
     setIsLoggedIn(true);
-    await storeAuthState({ isLoggedIn: true });
+    storeAuthState({ isLoggedIn: true });
     router.replace("/");
   };
-  const logOut = async () => {
+  const logOut = () => {
     setIsLoggedIn(false);
-    await storeAuthState({ isLoggedIn: false });
+    storeAuthState({ isLoggedIn: false });
     router.replace("/login");
   };
 
@@ -44,14 +45,12 @@ export default function AuthProvider({ children }: PropsWithChildren) {
     try {
       const jsonValue = JSON.stringify(newState);
       await AsyncStorage.setItem(authStorageKey, jsonValue);
-      console.log("status saved", jsonValue);
     } catch (error) {
       console.error("Error storing auth state:", error);
     }
   };
 
   useEffect(() => {
-    //fetching auth state from async storage
     const fetchAuthState = async () => {
       try {
         const jsonValue = await AsyncStorage.getItem(authStorageKey);
@@ -64,7 +63,15 @@ export default function AuthProvider({ children }: PropsWithChildren) {
       }
       setIsReady(true);
     };
+    //fetching auth state from async storage
+
     fetchAuthState();
+  }, []);
+
+  useEffect(() => {
+    if (isReady) {
+      SplashScreen.hideAsync();
+    }
   }, []);
 
   return (

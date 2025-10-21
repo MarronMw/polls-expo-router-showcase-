@@ -11,18 +11,10 @@ import {
 import { AuthContext } from "../utils/aunthContext";
 
 function Login() {
+  console.log("login Screen");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const aunthContext = useContext(AuthContext);
-
-  const handleSubmit = () => {
-    if (!email.trim() || !password) {
-      Alert.alert("Validation", "Please enter email and password.");
-      return;
-    }
-    // Replace login
-    return aunthContext.logIn();
-  };
 
   return (
     <Screen style={styles.screen}>
@@ -48,11 +40,11 @@ function Login() {
           value={password}
           onChangeText={setPassword}
           secureTextEntry
-          placeholder="••••••••"
+          placeholder="enter password"
           placeholderTextColor="#999"
         />
 
-        <TouchableOpacity style={styles.button} onPress={handleSubmit}>
+        <TouchableOpacity style={styles.button} onPress={aunthContext.logIn}>
           <Text style={styles.buttonText}>Sign in</Text>
         </TouchableOpacity>
       </View>

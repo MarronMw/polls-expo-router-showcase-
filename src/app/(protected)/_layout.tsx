@@ -2,30 +2,21 @@ import { Redirect, Stack } from "expo-router";
 import React, { useContext } from "react";
 import { AuthContext } from "../../utils/aunthContext";
 
-export const unstable_settings = {
-  // Ensure that the layout is always re-rendered on navigation
-  revalidate: "always",
-};
+// export const unstable_settings = {
+//   initialRouteName: "(tabs)", //anchor
+// };
 
-function ProtectedLayOut() {
+export default function ProtectedLayOut() {
   const aunthState = useContext(AuthContext);
-  console.log(
-    "isReady:",
-    aunthState.isReady,
-    "isLoggedIn:",
-    aunthState.isLoggedIn
-  );
+  console.log("Auth Ready LogIn:", aunthState.isReady, aunthState.isLoggedIn);
+  console.log(" ");
+
   if (!aunthState.isReady) {
-    return null; //or a loading spinnerc
+    return null; //or add a loading spinnerc
   }
+
   if (!aunthState.isLoggedIn) {
     return <Redirect href="/login" />;
   }
-  return (
-    <Stack>
-      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-    </Stack>
-  );
+  return <Stack screenOptions={{ headerShown: false }} />;
 }
-
-export default ProtectedLayOut;
